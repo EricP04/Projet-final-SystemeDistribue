@@ -1,7 +1,8 @@
 package com.example.demo.Service;
 
 import com.example.demo.Entity.Customer;
-import com.example.demo.Form.Customer.CustomerForm;
+import com.example.demo.Form.Customer.CustomerLoginForm;
+import com.example.demo.Form.Customer.CustomerRegisterForm;
 import com.example.demo.Repository.CustomerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,12 @@ public class CustomerService implements ICustomerService{
 
 
     @Override
-    public Customer createCustomerFromForm(CustomerForm form) throws  Exception{
-        return customerDAO.createCustomerFromForm(form);
+    public Customer createCustomerFromFormRegister(CustomerRegisterForm form) throws  Exception{
+        return customerDAO.createCustomerFromFormRegister(form);
+    }
+
+    @Override
+    public Customer searchCustomerFromForm(CustomerLoginForm form) throws Exception {
+        return customerDAO.searchCustomerFromForm(form);
     }
 }

@@ -3,7 +3,7 @@ package com.example.demo.Form.Customer;
 
 import com.example.demo.Entity.Customer;
 
-public class CustomerForm {
+public class CustomerRegisterForm {
     private Integer id;
     private String name;
     private String surname;
@@ -12,12 +12,12 @@ public class CustomerForm {
     private String password;
     private String confirmPassword;
 
-    public CustomerForm()
+    public CustomerRegisterForm()
     {
 
     }
 
-    public CustomerForm(Integer id, String name, String surname, String address, String emailAddress, String password, String confirmPassword) {
+    public CustomerRegisterForm(Integer id, String name, String surname, String address, String emailAddress, String password, String confirmPassword) {
         this.id = id;
         this.name = name;
         this.surname = surname;

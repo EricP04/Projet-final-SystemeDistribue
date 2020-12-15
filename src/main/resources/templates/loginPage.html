@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -21,11 +21,41 @@
 <div class="tab-content">
     <div id="Customer" class="tab-pane fade show active">
         <h4 class="mt-2">Customer Connexion</h4>
-        <FORM method="POST" >
+        <!--<FORM method="POST" >
             <p>Username:<INPUT type="text" name="username"></p>
             <p>Password:<INPUT TYPE="password" name="password"></p>
             <p><INPUT type="submit" value="Connexion"></p>
-        </FORM>
+        </FORM>-->
+        <form th:action="@{/loginCustomerCheck}" th:object="${customerLoginForm}" METHOD="post">
+            <table>
+                <tr>
+                    <td>Email address</td>
+                    <td><input type="text" th:field="*{emailAddress}" /> </td>
+                    <td>
+                        <span th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}">..</span>
+                    </td>
+                </tr>
+                <td>Password</td>
+                <td><input type="password" th:field="*{password}" /> </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">..</span>
+                </td>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <input type="submit" value="Submit" />
+                        <a th:href="@{/}">Cancel</a>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div th:if="${credentials != null}"
+                             th:utext="${credentials}" class="error"></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
     <div id="Supplier" class="tab-pane fade">
         <h4 class="mt-2">Supplier Connexion</h4>

@@ -1,8 +1,8 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entity.Customer;
-import com.example.demo.Form.Customer.CustomerForm;
-import com.example.demo.Form.Customer.CustomerValidator;
+import com.example.demo.Form.Customer.CustomerRegisterForm;
+import com.example.demo.Form.Customer.CustomerRegisterValidator;
 import com.example.demo.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @Autowired
-    private CustomerValidator customerValidator;
+    private CustomerRegisterValidator customerRegisterValidator;
 
     @PostMapping("/loginCheck")
     public String loginCheck()
@@ -37,22 +37,23 @@ public class CustomerController {
         if(target == null)
             return;
 
-        if(target.getClass() == CustomerForm.class)
-            dataBinder.setValidator(customerValidator);
+        if(target.getClass() == CustomerRegisterForm.class)
+            dataBinder.setValidator(customerRegisterValidator);
     }
 
+    //region RegisterCustomer
 
     @RequestMapping(value="/customerRegister", method = RequestMethod.GET)
     public String viewCustomerRegister(Model model)
     {
-        CustomerForm customerForm = new CustomerForm();
-        model.addAttribute("customerForm",customerForm);
+        CustomerRegisterForm customerRegisterForm = new CustomerRegisterForm();
+        model.addAttribute("customerRegisterForm", customerRegisterForm);
 
         return "customerRegisterPage";
     }
 
     @RequestMapping(value="/customerRegister", method = RequestMethod.POST)
-    public String saveNewCustomer(Model model, @ModelAttribute("customerForm") @Validated CustomerForm customerForm, //
+    public String saveNewCustomer(Model model, @ModelAttribute("customerRegisterForm") @Validated CustomerRegisterForm customerRegisterForm, //
                                   BindingResult result,
                                   final RedirectAttributes redirectAttributes)
     {
@@ -67,7 +68,7 @@ public class CustomerController {
         }
         Customer customer = null;
         try{
-            customer = customerService.createCustomerFromForm(customerForm);
+            customer = customerService.createCustomerFromFormRegister(customerRegisterForm);
         }
         catch(Exception e)
         {
@@ -80,6 +81,12 @@ public class CustomerController {
 
         return "shop";
     }
+
+    //endregion
+
+
+
+
 
 
 }
