@@ -30,4 +30,9 @@ public class SupplierService implements ISupplierService {
         return supplierDAO.searchSupplierFromForm(form);
     }
 
+    @Override
+    public Supplier searchById(Integer id) {
+        return supplierDAO.searchById(id);
+    }
+
 }

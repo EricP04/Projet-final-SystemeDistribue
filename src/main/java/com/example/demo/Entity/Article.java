@@ -82,6 +82,26 @@ public class Article {
         this.articleInformations = articleInformations;
     }
 
+    public void addArticleInformation(ArticleInformation articleInformation)
+    {
+        this.articleInformations.add(articleInformation);
+    }
+
+    public void updateArticleInformation(ArticleInformation articleInformation)
+    {
+        boolean find = false;
+        for(int i = 0 ; i<articleInformations.size() && !find;i++)
+        {
+            if(articleInformations.get(i).getSupplier().equals(articleInformation.getSupplier()))
+            {
+                find = true;
+                articleInformations.get(i).setStock(articleInformation.getStock());
+                articleInformations.get(i).setPrice(articleInformation.getPrice());
+            }
+        }
+        if(!find)
+            articleInformations.add(articleInformation);
+    }
     /*
     public List<ArticlePrice> getPriceList() {
         return priceList;

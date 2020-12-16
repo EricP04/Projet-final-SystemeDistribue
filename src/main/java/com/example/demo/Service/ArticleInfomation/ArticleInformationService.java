@@ -18,7 +18,7 @@ public class ArticleInformationService implements IArticleInformationService {
     private ArticleInformationDAO articleInformationDAO;
 
     @Override
-    public boolean saveNewArticleInformation(ArticleInformation articleInformation) {
+    public ArticleInformation saveNewArticleInformation(ArticleInformation articleInformation) {
         return articleInformationDAO.saveNewArticleInformation(articleInformation);
     }
 

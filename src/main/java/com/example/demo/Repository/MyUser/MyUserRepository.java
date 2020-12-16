@@ -9,4 +9,6 @@ public interface MyUserRepository extends CrudRepository<MyUser, Integer> {
 
     @Override
     Iterable<MyUser> findAll();
+
+
 }

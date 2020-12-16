@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IArticleInformationDAO {
 
-    boolean saveNewArticleInformation(ArticleInformation articleInformation);
+    ArticleInformation saveNewArticleInformation(ArticleInformation articleInformation);
 
     ArticleInformation getInformationForOneArticleFromOneSupplier(Article article, Supplier supplier);
 

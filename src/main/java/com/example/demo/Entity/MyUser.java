@@ -1,6 +1,7 @@
 package com.example.demo.Entity;
 
 import com.sun.istack.NotNull;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -92,4 +93,5 @@ public abstract class MyUser {
     public int hashCode() {
         return Objects.hash(id, emailAddress, password, role, address);
     }
+
 }

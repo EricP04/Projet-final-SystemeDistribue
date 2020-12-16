@@ -9,6 +9,7 @@ import com.example.demo.Form.Login.LoginSupplierForm;
 import com.example.demo.Service.Customer.CustomerService;
 import com.example.demo.Service.Supplier.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,10 +17,12 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class LoginController {
+@RequestMapping("/loginPage/customer")
+public class LoginCustomerController {
 
     @Autowired
     private CustomerService customerService;
@@ -36,25 +39,26 @@ public class LoginController {
         if(target == null)
             return;
 
-        if(target.getClass() == LoginForm.class)
+        if(target.getClass() == LoginCustomerForm.class)
             dataBinder.setValidator(customerLoginValidator);
     }
 
 
-    @GetMapping("/connexion")
+    @GetMapping("/")
     public String index(Model model)
     {
-        LoginForm loginForm = new LoginForm();
+        LoginCustomerForm loginForm = new LoginCustomerForm();
         model.addAttribute("loginFormCustomer", new LoginCustomerForm());
-        model.addAttribute("loginFormSupplier",new LoginSupplierForm());
-        return "loginPage";
+        //model.addAttribute("loginFormSupplier",new LoginSupplierForm());
+        return "loginPageCustomer";
     }
 
 
 
 
 
-    @RequestMapping(value="/loginCustomerCheck", method = RequestMethod.POST)
+
+    @RequestMapping(value="/", method = RequestMethod.POST)
     public String checkCustomer(Model model, @ModelAttribute("loginFormCustomer") @Validated LoginCustomerForm loginForm, //
                                    BindingResult result,
                                    final RedirectAttributes redirectAttributes)
@@ -71,7 +75,7 @@ public class LoginController {
             }
             System.out.println("Il y a des erreurs ici");
             model.addAttribute("loginFormSupplier",new LoginSupplierForm());
-            return "loginPage";
+            return "loginPageCustomer";
         }
         Customer customer = null;
         try{
@@ -84,14 +88,14 @@ public class LoginController {
              */
             model.addAttribute("errorMessageCustomer","Exception : " +e.getMessage());
             model.addAttribute("loginFormSupplier",new LoginSupplierForm());
-            return "loginPage";
+            return "loginPageCustomer";
         }
 
 
         return "shop";
     }
 
-    @RequestMapping(value="/loginSupplierCheck", method = RequestMethod.POST)
+   /* @RequestMapping(value="/loginSupplierCheck", method = RequestMethod.POST)
     public String checkSupplier(Model model, @ModelAttribute("loginFormSupplier") @Validated LoginSupplierForm loginForm, //
                                    BindingResult result,
                                    final RedirectAttributes redirectAttributes)
@@ -102,14 +106,14 @@ public class LoginController {
             /**
              * @TODO : Debug trace
              */
-            for(ObjectError t : result.getAllErrors())
+           /* for(ObjectError t : result.getAllErrors())
             {
                 System.out.println("Erreur : " + t.toString());
             }
             System.out.println("Il y a des erreurs ici");
             model.addAttribute("loginFormCustomer",new LoginCustomerForm());
 
-            return "loginPage";
+            return "loginPageCustomer";
         }
         Supplier supplier = null;
         try{
@@ -120,15 +124,15 @@ public class LoginController {
             /**
              * @Todo : Add log file and hide exception's detail client side
              */
-            model.addAttribute("errorMessageCustomer","Exception : " +e.getMessage());
+            /*model.addAttribute("errorMessageCustomer","Exception : " +e.getMessage());
             model.addAttribute("loginFormCustomer",new LoginCustomerForm());
 
-            return "loginPage";
+            return "loginPageCustomer";
         }
 
 
         return "redirect:/sell/";
-    }
+    }*/
 
 
 

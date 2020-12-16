@@ -12,8 +12,8 @@ public class ArticleDAO implements IArticleDAO{
 
 
     @Override
-    public boolean saveNewArticle(Article article) {
-        return articleRepository.save(article)!=null;
+    public Article saveNewArticle(Article article) {
+        return articleRepository.save(article);
     }
 
     @Override

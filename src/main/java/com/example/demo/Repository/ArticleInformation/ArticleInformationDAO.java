@@ -17,8 +17,8 @@ public class ArticleInformationDAO implements IArticleInformationDAO {
 
 
     @Override
-    public boolean saveNewArticleInformation(ArticleInformation articleInformation) {
-        return articleInformationRepository.save(articleInformation)!=null;
+    public ArticleInformation saveNewArticleInformation(ArticleInformation articleInformation) {
+        return articleInformationRepository.save(articleInformation);
     }
 
     @Override

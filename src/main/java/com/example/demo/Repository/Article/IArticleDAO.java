@@ -4,7 +4,7 @@ import com.example.demo.Entity.Article;
 
 public interface IArticleDAO {
 
-    boolean saveNewArticle(Article article);
+    Article saveNewArticle(Article article);
 
     Article getArticleByName(String name);
 

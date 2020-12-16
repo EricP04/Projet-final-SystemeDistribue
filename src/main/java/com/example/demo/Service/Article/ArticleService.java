@@ -2,6 +2,7 @@ package com.example.demo.Service.Article;
 
 import com.example.demo.DTO.ArticleDTO;
 import com.example.demo.Entity.Article;
+import com.example.demo.Entity.ArticleInformation;
 import com.example.demo.Entity.Supplier;
 import com.example.demo.Repository.Article.ArticleDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ArticleService implements IArticleService{
 
 
     @Override
-    public boolean saveNewArticle(Article article) {
+    public Article saveNewArticle(Article article) {
         return articleDAO.saveNewArticle(article);
     }
 

@@ -16,6 +16,8 @@ public class MyMyUserDAO implements IMyUserDAO {
         Iterable<MyUser> users = myUserRepository.findAll();
         for(MyUser myUser : users)
         {
+            System.out.println("ON COMPARE :" + email+ " avec ");
+            System.out.println("MY USER DANS LA BOUCLE : " + myUser.getEmailAddress());
             if(myUser.getEmailAddress().compareTo(email)==0)
                 return myUser;
         }

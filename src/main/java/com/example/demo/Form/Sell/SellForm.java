@@ -2,7 +2,7 @@ package com.example.demo.Form.Sell;
 
 public class SellForm {
 
-    private Integer idSupplier;
+    private String emailSupplier;
     private String name;
     private double price;
     private int stock;
@@ -10,8 +10,12 @@ public class SellForm {
     public SellForm() {
     }
 
-    public SellForm(Integer idSupplier, String name, double price, int stock) {
-        this.idSupplier = idSupplier;
+    public SellForm(String emailSupplier) {
+        this.emailSupplier = emailSupplier;
+    }
+
+    public SellForm(String emailSupplier, String name, double price, int stock) {
+        this.emailSupplier = emailSupplier;
         this.name = name;
         this.price = price;
         this.stock = stock;
@@ -41,11 +45,11 @@ public class SellForm {
         this.stock = stock;
     }
 
-    public Integer getIdSupplier() {
-        return idSupplier;
+    public String getEmailSupplier() {
+        return emailSupplier;
     }
 
-    public void setIdSupplier(Integer idSupplier) {
-        this.idSupplier = idSupplier;
+    public void setEmailSupplier(String emailSupplier) {
+        this.emailSupplier = emailSupplier;
     }
 }
