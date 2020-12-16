@@ -2,38 +2,40 @@ package com.example.demo.Entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class Supplier {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Supplier extends MyUser{
 
     private String societyName;
-    private String emailAddress;
-    /**
-     * @Todo: Encryption password
-     */
-    private String password;
+    private String numTva;
+    @OneToMany
+    private List<ArticleInformation> articleInformation;
+    public Supplier()
+    {
 
-    public Supplier(int id, String societyName, String emailAddress, String password) {
-        this.id = id;
+    }
+
+    public Supplier(String emailAddress, String password, String role, String address, String societyName, String numTva, List<ArticleInformation> articleInformation) {
+        super(emailAddress, password, role, address);
         this.societyName = societyName;
-        this.emailAddress = emailAddress;
-        this.password = password;
+        this.numTva = numTva;
+        if(articleInformation!=null)
+            this.articleInformation = articleInformation;
+        else
+            this.articleInformation = new ArrayList<>();
     }
 
-    public Supplier() {
+    public String getNumTva() {
+        return numTva;
     }
 
-    public int getId() {
-        return id;
+    public void setNumTva(String numTva) {
+        this.numTva = numTva;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getSocietyName() {
         return societyName;
@@ -43,19 +45,18 @@ public class Supplier {
         this.societyName = societyName;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Supplier supplier = (Supplier) o;
+        return societyName.equals(supplier.societyName) &&
+                numTva.equals(supplier.numTva);
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public int hashCode() {
+        return Objects.hash(societyName, numTva);
     }
 }

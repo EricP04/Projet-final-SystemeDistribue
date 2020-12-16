@@ -23,6 +23,12 @@ public class ArticlePrice {
     public ArticlePrice() {
     }
 
+    public ArticlePrice(Article article, Supplier supplier, int price) {
+        this.article = article;
+        this.supplier = supplier;
+        this.price = price;
+    }
+
     public ArticlePrice(int id, Article article, Supplier supplier, int price) {
         this.id = id;
         this.article = article;

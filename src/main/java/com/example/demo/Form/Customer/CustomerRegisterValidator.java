@@ -1,7 +1,7 @@
 package com.example.demo.Form.Customer;
 
 import com.example.demo.Entity.Customer;
-import com.example.demo.Repository.CustomerDAO;
+import com.example.demo.Repository.Customer.CustomerDAO;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +37,7 @@ public class CustomerRegisterValidator implements Validator {
         if(!this.emailValidator.isValid(customerRegisterForm.getEmailAddress()))
         {
             errors.rejectValue("emailAddress","Pattern.customerRegisterForm.email");
+            return;
         }
         else
         {
@@ -46,6 +47,7 @@ public class CustomerRegisterValidator implements Validator {
                 if(customer != null)
                 {
                     errors.rejectValue("emailAddress","Duplicate.customerRegisterForm.email");
+                    return;
                 }
          //   }
         }

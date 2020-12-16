@@ -6,27 +6,25 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.*;
 
 @Entity
-public class Customer {
+public class Customer extends MyUser{
 
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;*/
 
     @Column(name="name")
     private String name;
     @Column(name="surname")
     private String surname;
-    @Column(name="address")
-    private String address;
     @Column(name="funds_available")
     private float fundsAvailable;
-    @Column(name="email_address",nullable = false,unique = true)
-    private String emailAddress;
+    //@Column(name="email_address",nullable = false,unique = true)
+    //private String emailAddress;
     /**
      * @TODO : Add encryption to store the password
      */
-    @Column(name="password",nullable = false,unique = true)
-    private String password;
+   // @Column(name="password",nullable = false,unique = true)
+    //private String password;
 
     public Customer() {
     }
@@ -40,23 +38,22 @@ public class Customer {
         this.password = password;
     }
 
-    public Customer(Integer id, String name, String surname, String address, float fundsAvailable, String emailAddress, String password) {
-        this.id = id;
+
+
+    public Customer(Integer id, String emailAddress, String password, String role, String address, String name, String surname, float fundsAvailable) {
+        super(id, emailAddress, password, role, address);
         this.name = name;
         this.surname = surname;
-        this.address = address;
         this.fundsAvailable = fundsAvailable;
-        this.emailAddress = emailAddress;
-        this.password = password;
     }
 
-    public Integer getId() {
+  /*public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -74,13 +71,7 @@ public class Customer {
         this.surname = surname;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public float getFundsAvailable() {
         return fundsAvailable;
@@ -90,7 +81,7 @@ public class Customer {
         this.fundsAvailable = fundsAvailable;
     }
 
-    public String getEmailAddress() {
+    /*public String getEmailAddress() {
         return emailAddress;
     }
 
@@ -104,5 +95,5 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
-    }
+    }*/
 }

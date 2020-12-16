@@ -21,6 +21,12 @@ public class ArticleStock {
     public ArticleStock() {
     }
 
+    public ArticleStock(Article article, Supplier supplier, int stock) {
+        this.article = article;
+        this.supplier = supplier;
+        this.stock = stock;
+    }
+
     public ArticleStock(int id, Article article, Supplier supplier, int stock) {
         this.id = id;
         this.article = article;

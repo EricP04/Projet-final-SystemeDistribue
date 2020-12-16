@@ -1,16 +1,16 @@
-package com.example.demo.Form.Customer;
+package com.example.demo.Form.Login;
 
-public class CustomerLoginForm {
+public class LoginForm {
 
     private String emailAddress;
     private String password;
 
-    public CustomerLoginForm()
+    public LoginForm()
     {
 
     }
 
-    public CustomerLoginForm(String emailAddress, String password)
+    public LoginForm(String emailAddress, String password)
     {
         this.emailAddress = emailAddress;
         this.password = password;

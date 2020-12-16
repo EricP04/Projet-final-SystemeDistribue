@@ -1,9 +1,13 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entity.Customer;
+import com.example.demo.Entity.Supplier;
 import com.example.demo.Form.Customer.CustomerRegisterForm;
 import com.example.demo.Form.Customer.CustomerRegisterValidator;
+import com.example.demo.Form.Supplier.SupplierRegisterForm;
+import com.example.demo.Form.Supplier.SupplierRegisterValidator;
 import com.example.demo.Service.Customer.CustomerService;
+import com.example.demo.Service.Supplier.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,19 +15,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(value ="/customer")
-public class CustomerController {
+@RequestMapping(value ="/supplier")
+public class SupplierController {
 
     @Autowired
-    private CustomerService customerService;
+    private SupplierService supplierService;
 
     @Autowired
-    private CustomerRegisterValidator customerRegisterValidator;
-
+    private SupplierRegisterValidator supplierRegisterValidator;
 
     @InitBinder
     protected void InitBinder(WebDataBinder dataBinder)
@@ -32,39 +38,38 @@ public class CustomerController {
         if(target == null)
             return;
 
-        if(target.getClass() == CustomerRegisterForm.class)
-            dataBinder.setValidator(customerRegisterValidator);
+        if(target.getClass() == SupplierRegisterForm.class)
+            dataBinder.setValidator(supplierRegisterValidator);
     }
 
     //region RegisterCustomer
 
-    @RequestMapping(value="/customerRegister", method = RequestMethod.GET)
-    public String viewCustomerRegister(Model model)
+    @RequestMapping(value="/register", method = RequestMethod.GET)
+    public String viewSupplierRegister(Model model)
     {
-        CustomerRegisterForm customerRegisterForm = new CustomerRegisterForm();
-        model.addAttribute("customerRegisterForm", customerRegisterForm);
+        SupplierRegisterForm supplierRegisterForm = new SupplierRegisterForm();
+        model.addAttribute("supplierRegisterForm", supplierRegisterForm);
 
-        return "customerRegisterPage";
+        return "supplierRegisterPage";
     }
 
-    @RequestMapping(value="/customerRegister", method = RequestMethod.POST)
-    public String saveNewCustomer(Model model, @ModelAttribute("customerRegisterForm") @Validated CustomerRegisterForm customerRegisterForm, //
+    @RequestMapping(value="/register", method = RequestMethod.POST)
+    public String saveNewSupplier(Model model, @ModelAttribute("supplierRegisterForm") @Validated SupplierRegisterForm supplierRegisterForm, //
                                   BindingResult result,
                                   final RedirectAttributes redirectAttributes)
     {
         if(result.hasErrors())
         {
-
             for(ObjectError t : result.getAllErrors())
             {
                 System.out.println("Erreur : " + t.toString());
             }
             System.out.println("Il y a des erreurs");
-            return "customerRegisterPage";
+            return "supplierRegisterPage";
         }
-        Customer customer = null;
+        Supplier supplier = null;
         try{
-            customer = customerService.createCustomerFromFormRegister(customerRegisterForm);
+            supplier = supplierService.createSupplierFromFormRegister(supplierRegisterForm);
         }
         catch(Exception e)
         {
@@ -72,16 +77,11 @@ public class CustomerController {
              * @Todo : Add log file and hide exception's detail client side
              */
             model.addAttribute("errorMessage","Exception : " +e.getMessage());
-            return "customerRegisterPage";
+            return "supplierRegisterPage";
         }
 
-        return "shop";
+        return "redirect:/sell/";
     }
-
-    //endregion
-
-
-
 
 
 

@@ -1,7 +1,7 @@
-package com.example.demo.Repository;
+package com.example.demo.Repository.Customer;
 
 import com.example.demo.Entity.Customer;
-import com.example.demo.Form.Customer.CustomerLoginForm;
+import com.example.demo.Form.Login.LoginForm;
 import com.example.demo.Form.Customer.CustomerRegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,13 +28,14 @@ public class CustomerDAO implements ICustomerDAO {
         Customer customer = new Customer(customerRegisterForm.getName(), customerRegisterForm.getSurname(),
                 customerRegisterForm.getAddress(), (float) 0.0,
                 customerRegisterForm.getEmailAddress(), encryptedPassword);
+        customer.setRole("CUSTOMER");
         if(save(customer))
             return customer;
         return null;
     }
 
     @Override
-    public Customer searchCustomerFromForm(CustomerLoginForm form) throws Exception {
+    public Customer searchCustomerFromForm(LoginForm form) throws Exception {
         return checkCredentials(form.getEmailAddress(),form.getPassword());
     }
 
