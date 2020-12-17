@@ -34,6 +34,30 @@ public class ArticleInformationDAO implements IArticleInformationDAO {
     }
 
     @Override
+    public ArticleInformation getArticleInformationById(Integer id) {
+        Iterable<ArticleInformation> articleInformations = articleInformationRepository.findAll();
+        for(ArticleInformation articleInformation : articleInformations)
+        {
+            System.out.println("ArticleInfoId:"+articleInformation.getId());
+            System.out.println("Compare with id =" + id);
+            if(articleInformation.getId()==id)
+                return articleInformation;
+        }
+        return null;
+    }
+
+    @Override
+    public ArticleInformation getArticleInformationByArticle(Article article) {
+        Iterable<ArticleInformation> articleInformations = articleInformationRepository.findAll();
+        for(ArticleInformation articleInformation : articleInformations)
+        {
+            if(articleInformation.getArticle().equals(article))
+                return articleInformation;
+        }
+        return null;
+    }
+
+    @Override
     public List<ArticleInformation> getListArticleInformationForOneSupplier(Supplier supplier) {
         Iterable<ArticleInformation> articleInformations = articleInformationRepository.findAll();
         List<ArticleInformation> listArticleInformation = new ArrayList<>();
@@ -44,4 +68,6 @@ public class ArticleInformationDAO implements IArticleInformationDAO {
         }
         return listArticleInformation;
     }
+
+
 }

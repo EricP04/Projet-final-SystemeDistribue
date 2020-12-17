@@ -39,6 +39,19 @@ public class CustomerDAO implements ICustomerDAO {
         return checkCredentials(form.getEmailAddress(),form.getPassword());
     }
 
+    @Override
+    public Customer searchCustomerByMail(String mail) {
+        Iterable<Customer> customers =  customerRepository.findAll();
+        for(Customer customer : customers)
+        {
+            System.out.println("CUSTOMER SEARCH MAIL CUSTOMER MAIL = " + customer.getEmailAddress());
+            System.out.println("COMPARE TO MAIL ="+mail);
+            if(customer.getEmailAddress().compareTo(mail)==0)
+                return customer;
+        }
+        return null;
+    }
+
 
     public Customer findCustomerByEmailAddress(String emailAddress)
     {

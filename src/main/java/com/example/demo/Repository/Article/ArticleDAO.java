@@ -4,6 +4,8 @@ import com.example.demo.Entity.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ArticleDAO implements IArticleDAO{
 
@@ -25,5 +27,21 @@ public class ArticleDAO implements IArticleDAO{
                 return article;
         }
         return null;
+    }
+
+    @Override
+    public Article getArticleById(Integer id) {
+        Iterable<Article> articles= articleRepository.findAll();
+        for(Article article : articles)
+        {
+            if(article.getId()==id)
+                return article;
+        }
+        return null;
+    }
+
+    @Override
+    public Iterable<Article> getAllArticle() {
+        return articleRepository.findAll();
     }
 }

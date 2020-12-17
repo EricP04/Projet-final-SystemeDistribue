@@ -69,6 +69,10 @@ public class Article {
     public void setName(String name) {
         this.name = name;
     }
+    public Integer getId()
+    {
+        return this.id;
+    }
 
     public void setId(Integer id) {
         this.id = id;

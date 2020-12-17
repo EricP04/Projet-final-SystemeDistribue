@@ -28,6 +28,16 @@ public class ArticleInformationService implements IArticleInformationService {
     }
 
     @Override
+    public ArticleInformation getArticleInformationById(Integer id) {
+        return articleInformationDAO.getArticleInformationById(id);
+    }
+
+    @Override
+    public ArticleInformation getArticleInformationByArticle(Article article) {
+        return articleInformationDAO.getArticleInformationByArticle(article);
+    }
+
+    @Override
     public List<ArticleInformation> getListArticleInformationForOneSupplier(Supplier supplier) {
         List<ArticleInformation> articleInformations = articleInformationDAO.getListArticleInformationForOneSupplier(supplier);
         return articleInformations;

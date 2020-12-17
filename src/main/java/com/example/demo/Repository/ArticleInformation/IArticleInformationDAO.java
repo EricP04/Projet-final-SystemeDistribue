@@ -12,5 +12,10 @@ public interface IArticleInformationDAO {
 
     ArticleInformation getInformationForOneArticleFromOneSupplier(Article article, Supplier supplier);
 
+    ArticleInformation getArticleInformationById(Integer id);
+
+    ArticleInformation getArticleInformationByArticle(Article article);
+
     List<ArticleInformation> getListArticleInformationForOneSupplier(Supplier supplier);
+
 }

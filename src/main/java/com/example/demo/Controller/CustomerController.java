@@ -3,6 +3,8 @@ package com.example.demo.Controller;
 import com.example.demo.Entity.Customer;
 import com.example.demo.Form.Customer.CustomerRegisterForm;
 import com.example.demo.Form.Customer.CustomerRegisterValidator;
+import com.example.demo.Service.Article.ArticleService;
+import com.example.demo.Service.ArticleInfomation.ArticleInformationService;
 import com.example.demo.Service.Customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,10 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+
     @Autowired
     private CustomerRegisterValidator customerRegisterValidator;
+
 
 
     @InitBinder

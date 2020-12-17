@@ -26,4 +26,9 @@ public class CustomerService implements ICustomerService{
     public Customer searchCustomerFromForm(LoginForm form) throws Exception {
         return customerDAO.searchCustomerFromForm(form);
     }
+
+    @Override
+    public Customer searchCustomerByMail(String mail) {
+        return customerDAO.searchCustomerByMail(mail);
+    }
 }

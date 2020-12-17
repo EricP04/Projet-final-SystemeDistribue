@@ -13,19 +13,19 @@ public class Order {
     private Integer id;
 
     @OneToMany
-    private List<Article> articles;
+    private List<ArticleInformation> articles;
 
     @ManyToOne
     private Customer customer;
 
     private int status;
 
-    private float totalPrice;
+    private double totalPrice;
 
     public Order() {
     }
 
-    public Order(int id, List<Article> articles, Customer customer, int status, float totalPrice) {
+    public Order(int id, List<ArticleInformation> articles, Customer customer, int status, double totalPrice) {
         this.id = id;
         this.articles = articles;
         this.customer = customer;
@@ -42,11 +42,11 @@ public class Order {
         this.id = id;
     }
 
-    public List<Article> getArticles() {
+    public List<ArticleInformation> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<Article> article) {
+    public void setArticles(List<ArticleInformation> article) {
         this.articles = article;
     }
 
@@ -66,11 +66,11 @@ public class Order {
         this.status = status;
     }
 
-    public float getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 }

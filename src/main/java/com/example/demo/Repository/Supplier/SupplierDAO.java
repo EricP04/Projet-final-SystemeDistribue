@@ -38,8 +38,8 @@ public class SupplierDAO implements ISupplierDAO {
     public Supplier createSupplierFromFormRegister(SupplierRegisterForm form) throws Exception {
         String encryptedPassword = this.passwordEncoder.encode(form.getPassword());
         Supplier supplier = new Supplier(form.getEmailAddress(), encryptedPassword,
-                "SUPPLIER", form.getSocietyName(),
-                form.getAddress(), form.getNumTva(),null);
+                "SUPPLIER",
+                form.getAddress(), form.getSocietyName(), form.getNumTva(),null);
         if(save(supplier))
             return supplier;
         return null;

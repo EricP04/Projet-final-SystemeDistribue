@@ -45,6 +45,13 @@ public class Supplier extends MyUser{
         this.societyName = societyName;
     }
 
+    public List<ArticleInformation> getArticleInformation() {
+        return articleInformation;
+    }
+
+    public void setArticleInformation(List<ArticleInformation> articleInformation) {
+        this.articleInformation = articleInformation;
+    }
 
     @Override
     public boolean equals(Object o) {

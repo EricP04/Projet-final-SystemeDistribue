@@ -9,4 +9,6 @@ public interface ICustomerDAO {
 
     Customer searchCustomerFromForm(LoginForm form) throws Exception;
 
+    Customer searchCustomerByMail(String mail);
+
 }

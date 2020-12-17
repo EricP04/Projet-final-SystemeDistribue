@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/loginPage/customer")
 public class LoginCustomerController {
@@ -61,7 +64,8 @@ public class LoginCustomerController {
     @RequestMapping(value="/", method = RequestMethod.POST)
     public String checkCustomer(Model model, @ModelAttribute("loginFormCustomer") @Validated LoginCustomerForm loginForm, //
                                    BindingResult result,
-                                   final RedirectAttributes redirectAttributes)
+                                   final RedirectAttributes redirectAttributes,
+                                HttpServletResponse response)
     {
         System.out.println("CHECK NEW CUSTOMER : email = " + loginForm.getEmailAddress() + " password = " + loginForm.getPassword());
         if(result.hasErrors())
@@ -91,8 +95,11 @@ public class LoginCustomerController {
             return "loginPageCustomer";
         }
 
-
-        return "shop";
+        System.out.println("ON VA SET LE COOKIE SUPPLIER AVEC : " + customer.getEmailAddress());
+        Cookie cookie = new Cookie("CUSTOMER",customer.getEmailAddress());
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "redirect:/shop/";
     }
 
    /* @RequestMapping(value="/loginSupplierCheck", method = RequestMethod.POST)
