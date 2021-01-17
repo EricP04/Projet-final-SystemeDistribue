@@ -5,6 +5,7 @@ public class SellForm {
     private String emailSupplier;
     private String name;
     private double price;
+    private String type;
     private int stock;
 
     public SellForm() {
@@ -14,10 +15,13 @@ public class SellForm {
         this.emailSupplier = emailSupplier;
     }
 
-    public SellForm(String emailSupplier, String name, double price, int stock) {
+
+
+    public SellForm(String emailSupplier, String name, double price, String type, int stock) {
         this.emailSupplier = emailSupplier;
         this.name = name;
         this.price = price;
+        this.type = type;
         this.stock = stock;
     }
 
@@ -51,5 +55,13 @@ public class SellForm {
 
     public void setEmailSupplier(String emailSupplier) {
         this.emailSupplier = emailSupplier;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

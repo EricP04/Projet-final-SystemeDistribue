@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface IBasketDAO {
 
-    List<ArticleSupplierDTO> getBasketForCustomer(Customer customer);
+    List<ArticleSupplierDTO> getListArticleBasketForCustomer(Customer customer);
+    Basket getBasketForCustomer(Customer customer);
     Basket addNewBasket(Basket basket);
     Basket findBasket(Customer customer);
 

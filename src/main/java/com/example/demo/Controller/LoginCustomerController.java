@@ -102,44 +102,6 @@ public class LoginCustomerController {
         return "redirect:/shop/";
     }
 
-   /* @RequestMapping(value="/loginSupplierCheck", method = RequestMethod.POST)
-    public String checkSupplier(Model model, @ModelAttribute("loginFormSupplier") @Validated LoginSupplierForm loginForm, //
-                                   BindingResult result,
-                                   final RedirectAttributes redirectAttributes)
-    {
-        System.out.println("CHECK SUPPLIER");
-        if(result.hasErrors())
-        {
-            /**
-             * @TODO : Debug trace
-             */
-           /* for(ObjectError t : result.getAllErrors())
-            {
-                System.out.println("Erreur : " + t.toString());
-            }
-            System.out.println("Il y a des erreurs ici");
-            model.addAttribute("loginFormCustomer",new LoginCustomerForm());
-
-            return "loginPageCustomer";
-        }
-        Supplier supplier = null;
-        try{
-            supplier = supplierService.searchSupplierFromForm(loginForm);
-        }
-        catch(Exception e)
-        {
-            /**
-             * @Todo : Add log file and hide exception's detail client side
-             */
-            /*model.addAttribute("errorMessageCustomer","Exception : " +e.getMessage());
-            model.addAttribute("loginFormCustomer",new LoginCustomerForm());
-
-            return "loginPageCustomer";
-        }
-
-
-        return "redirect:/sell/";
-    }*/
 
 
 

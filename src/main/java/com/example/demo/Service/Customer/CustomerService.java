@@ -31,4 +31,9 @@ public class CustomerService implements ICustomerService{
     public Customer searchCustomerByMail(String mail) {
         return customerDAO.searchCustomerByMail(mail);
     }
+
+    @Override
+    public void increaseFundsAvailable(Customer customer, float funds) {
+        customerDAO.increaseFundsAvailable(customer,funds);
+    }
 }

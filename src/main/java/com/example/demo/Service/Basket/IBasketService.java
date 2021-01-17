@@ -7,4 +7,5 @@ import com.example.demo.Repository.Basket.IBasketDAO;
 public interface IBasketService extends IBasketDAO {
 
     //ArticleSupplierDTO basketToArticle(Basket basket);
+
 }

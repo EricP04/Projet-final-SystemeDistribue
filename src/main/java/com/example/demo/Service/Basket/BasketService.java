@@ -1,7 +1,6 @@
 package com.example.demo.Service.Basket;
 
 import com.example.demo.DTO.ArticleSupplierDTO;
-import com.example.demo.Entity.ArticleInformation;
 import com.example.demo.Entity.Basket;
 import com.example.demo.Entity.Customer;
 import com.example.demo.Repository.ArticleInformation.ArticleInformationDAO;
@@ -21,12 +20,18 @@ public class BasketService implements IBasketService {
     private ArticleInformationDAO articleInformationDAO;
 
     @Override
-    public List<ArticleSupplierDTO> getBasketForCustomer(Customer customer) {
+    public List<ArticleSupplierDTO> getListArticleBasketForCustomer(Customer customer) {
+        return basketDAO.getListArticleBasketForCustomer(customer);
+    }
+
+    @Override
+    public Basket getBasketForCustomer(Customer customer) {
         return basketDAO.getBasketForCustomer(customer);
     }
 
     @Override
     public Basket addNewBasket(Basket basket) {
+        System.out.println("ICI BASKET = " + basket.getTotalPrice());
         return basketDAO.addNewBasket(basket);
     }
 

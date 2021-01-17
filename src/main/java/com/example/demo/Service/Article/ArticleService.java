@@ -56,7 +56,7 @@ public class ArticleService implements IArticleService{
             if(articleInformation!=null) {
                 System.out.println("ARTICLE INFORMATION ID = " + articleInformation.getId());
                 articleSupplierDTOS.add(new ArticleSupplierDTO(article.getId(), articleInformation.getId(), article.getName(), articleInformation.getSupplier(),
-                        articleInformation.getPrice(), articleInformation.getStock()));
+                        articleInformation.getPrice(), articleInformation.getStock(),articleInformation.getArticle().getType()));
             }
         }
         return  articleSupplierDTOS;

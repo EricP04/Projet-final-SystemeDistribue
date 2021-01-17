@@ -19,7 +19,7 @@ public class BasketDAO implements IBasketDAO {
     private ArticleInformationDAO articleInformationDAO;
 
     @Override
-    public List<ArticleSupplierDTO> getBasketForCustomer(Customer customer) {
+    public List<ArticleSupplierDTO> getListArticleBasketForCustomer(Customer customer) {
         Iterable<Basket> baskets = basketRepository.findAll();
         List<ArticleSupplierDTO> articleSupplierDTOS = new ArrayList<>();
         for(Basket basket : baskets)
@@ -32,7 +32,7 @@ public class BasketDAO implements IBasketDAO {
                         ArticleInformation articleInformation = articleInformationDAO.getArticleInformationByArticle(articleOrderInformation.getArticle());
                         articleSupplierDTOS.add(new ArticleSupplierDTO(articleInformation.getArticle().getId(),articleInformation.getId(),
                                 articleInformation.getArticle().getName(),
-                            articleInformation.getSupplier(), articleOrderInformation.getPrice(), articleOrderInformation.getCount()));
+                            articleInformation.getSupplier(), articleOrderInformation.getPrice(), articleOrderInformation.getCount(),articleInformation.getArticle().getType()));
                     }
 
 
@@ -43,7 +43,19 @@ public class BasketDAO implements IBasketDAO {
     }
 
     @Override
+    public Basket getBasketForCustomer(Customer customer) {
+        Iterable<Basket> baskets = basketRepository.findAll();
+        for(Basket basket : baskets)
+        {
+            if(basket.getCustomer().equals(customer))
+                return basket;
+        }
+        return null;
+    }
+
+    @Override
     public Basket addNewBasket(Basket basket) {
+        System.out.println("BASKET QU ON VA SAVE :----------------------" + basket.getTotalPrice());
         return basketRepository.save(basket);
     }
 

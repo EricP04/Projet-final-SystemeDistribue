@@ -10,17 +10,19 @@ public class ArticleSupplierDTO {
     private Supplier supplier;
     private double price;
     private int stock;
+    private String type;
 
     public ArticleSupplierDTO() {
     }
 
-    public ArticleSupplierDTO(Integer idArticle, Integer idArticleInfo, String name, Supplier supplier, double price, int stock) {
+    public ArticleSupplierDTO(Integer idArticle, Integer idArticleInfo, String name, Supplier supplier, double price, int stock,String type) {
         this.idArticle = idArticle;
         this.idArticleInfo = idArticleInfo;
         this.name = name;
         this.supplier = supplier;
         this.price = price;
         this.stock = stock;
+        this.type = type;
     }
 
 
@@ -71,5 +73,13 @@ public class ArticleSupplierDTO {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

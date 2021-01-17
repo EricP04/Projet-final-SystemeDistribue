@@ -50,7 +50,7 @@ public class ArticleInformationService implements IArticleInformationService {
         List<ArticleDTO> articleDTOS = new ArrayList<>();
         for (ArticleInformation article: articleInformations
              ) {
-            articleDTOS.add(new ArticleDTO(article.getArticle().getName(),article.getPrice(),article.getStock()));
+            articleDTOS.add(new ArticleDTO(article.getArticle().getName(),article.getPrice(),article.getStock(),article.getArticle().getType()));
         }
         return articleDTOS;
     }

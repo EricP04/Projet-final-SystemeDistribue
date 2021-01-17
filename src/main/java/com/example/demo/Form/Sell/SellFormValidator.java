@@ -39,6 +39,7 @@ public class SellFormValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "name", "NotEmpty.sellForm.name");
         ValidationUtils.rejectIfEmpty(errors, "stock", "NotEmpty.sellForm.stock");
         ValidationUtils.rejectIfEmpty(errors, "price", "NotEmpty.sellForm.price");
+        ValidationUtils.rejectIfEmpty(errors, "type", "NotEmpty.sellForm.type");
 
 
 
@@ -49,7 +50,7 @@ public class SellFormValidator implements Validator {
             Article article = articleDAO.getArticleByName(sellForm.getName());
             if (article == null) {
                 ///On le crée
-                article = new Article(sellForm.getName());
+                article = new Article(sellForm.getName(),sellForm.getType());
                 article = articleDAO.saveNewArticle(article);
                 if(article==null)
                 {

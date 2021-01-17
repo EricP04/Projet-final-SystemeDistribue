@@ -17,6 +17,8 @@ public class Article {
     @Column(nullable = false)
     private String name;
 
+    private String type;
+
    /* @OneToMany
     private List<ArticlePrice> priceList;
 
@@ -31,9 +33,10 @@ public class Article {
 
     }
 
-    public Article(Integer id, String name) {
-        this.id = id;
+    public Article(String name, String type, List<ArticleInformation> articleInformations) {
         this.name = name;
+        this.type = type;
+        this.articleInformations = articleInformations;
     }
 
     public Article(Integer id, String name, List<ArticleInformation> articleInformations) {
@@ -42,11 +45,13 @@ public class Article {
         this.articleInformations = articleInformations;
     }
 
-    public Article(String name) {
+
+
+    public Article(String name, String type) {
         this.name = name;
+        this.type = type;
         this.articleInformations = new ArrayList<>();
     }
-
     /*public Article(String name, List<ArticlePrice> priceList, List<ArticleStock> stockList) {
         this.name = name;
         this.priceList = priceList;
@@ -137,5 +142,13 @@ public class Article {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

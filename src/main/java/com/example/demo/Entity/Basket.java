@@ -21,7 +21,19 @@ public class Basket {
 
     private double totalPrice;
 
+    public Basket(Customer customer)
+    {
+        this.customer = customer;
+        this.totalPrice = 0;
+        this.articles = new ArrayList<>();
+    }
+
     public Basket() {
+    }
+    public Basket(double totalPrice)
+    {
+        this.totalPrice = totalPrice;
+        articles = new ArrayList<>();
     }
 
     public Basket(List<ArticleOrderInformation> articles, Customer customer, double totalPrice) {
@@ -62,17 +74,11 @@ public class Basket {
         this.totalPrice = totalPrice;
     }
 
-  /*  public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }*/
 
     public List<ArticleOrderInformation> getArticles() {
         return articles;
     }
+
 
     public void setArticles(List<ArticleOrderInformation> articles) {
         this.articles = articles;
@@ -92,4 +98,5 @@ public class Basket {
         }
         this.articles.add(article);
     }
+
 }

@@ -35,10 +35,17 @@
                             <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}">..</span>
                         </td>
                     </tr>
-                    <td>Password</td>
+                    <td>Quantite</td>
                     <td><input type="text" th:field="*{stock}" /> </td>
                     <td>
                         <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">..</span>
+                    </td>
+                    </tr>
+                    </tr>
+                    <td>Type</td>
+                    <td><input type="text" th:field="*{type}" /> </td>
+                    <td>
+                        <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">..</span>
                     </td>
                     </tr>
                     <tr>
@@ -67,6 +74,9 @@
                             </div>
                             <div class="col">
                                 <td th:text="${article.stock}"/>
+                            </div>
+                            <div class="col">
+                                <td th:text="${article.type}"/>
                             </div>
                         </div>
                         </div>

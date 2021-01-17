@@ -1,0 +1,15 @@
+syntax = "proto3";
+package bankgrpc.udit.grpc;
+option java_multiple_files = true;
+option java_package ="bankgrpc.gen.proto";
+service BankContact {
+  rpc askMoney(AskMoneyRequest) returns (ReplyBank){};
+}
+message AskMoneyRequest {
+  string numAccount =1;
+  float askAmount =2;
+
+}
+message ReplyBank {
+  bool reply =1;
+}
