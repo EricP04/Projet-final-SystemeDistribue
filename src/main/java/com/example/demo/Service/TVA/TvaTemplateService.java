@@ -26,6 +26,7 @@ public class TvaTemplateService {
     public double getTotalPriceWithTva(List<ArticleOrderInformation> articleSupplierDTOList)
     {
 
+        System.out.println("ArticleSupplierDTOList size :" + articleSupplierDTOList.size());
         List<ArticleTypePriceDTO> listArticleTypePriceDTOS = new ArrayList<>();
         for(ArticleOrderInformation articleOrderInformation : articleSupplierDTOList)
         {

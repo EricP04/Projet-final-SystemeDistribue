@@ -58,6 +58,12 @@ public class CustomerDAO implements ICustomerDAO {
         customerRepository.save(customer);
     }
 
+    @Override
+    public void decreaseFundsAvailable(Customer customer, float funds) {
+        customer.setFundsAvailable(customer.getFundsAvailable()-funds);
+        customerRepository.save(customer);
+    }
+
 
     public Customer findCustomerByEmailAddress(String emailAddress)
     {

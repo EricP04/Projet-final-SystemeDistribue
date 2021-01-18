@@ -13,5 +13,6 @@ public interface IBasketDAO {
     Basket getBasketForCustomer(Customer customer);
     Basket addNewBasket(Basket basket);
     Basket findBasket(Customer customer);
+    void deleteBasketBuyedForCustomer(Customer customer);
 
 }

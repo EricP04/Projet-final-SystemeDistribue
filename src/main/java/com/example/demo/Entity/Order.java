@@ -13,7 +13,7 @@ public class Order {
     private Integer id;
 
     @OneToMany
-    private List<ArticleInformation> articles;
+    private List<ArticleOrderInformation> articles;
 
     @ManyToOne
     private Customer customer;
@@ -25,8 +25,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, List<ArticleInformation> articles, Customer customer, int status, double totalPrice) {
-        this.id = id;
+    public Order(List<ArticleOrderInformation> articles, Customer customer, int status, double totalPrice) {
         this.articles = articles;
         this.customer = customer;
         this.status = status;
@@ -34,19 +33,19 @@ public class Order {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public List<ArticleInformation> getArticles() {
+    public List<ArticleOrderInformation> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleInformation> article) {
+    public void setArticles(List<ArticleOrderInformation> article) {
         this.articles = article;
     }
 
@@ -60,6 +59,19 @@ public class Order {
 
     public int getStatus() {
         return status;
+    }
+    public String getStatusString()
+    {
+        switch(status)
+        {
+            case 0:
+                return "Processed";
+            case 1:
+                return "Shipped";
+            case 2:
+                return "Received";
+        }
+        return "";
     }
 
     public void setStatus(int status) {

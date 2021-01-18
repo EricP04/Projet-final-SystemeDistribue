@@ -69,4 +69,16 @@ public class BasketDAO implements IBasketDAO {
         }
         return null;
     }
+
+    @Override
+    public void deleteBasketBuyedForCustomer(Customer customer) {
+        Iterable<Basket> baskets = basketRepository.findAll();
+        for(Basket basket : baskets)
+        {
+            if(basket.getCustomer().equals(customer))
+            {
+                basketRepository.delete(basket);
+            }
+        }
+    }
 }

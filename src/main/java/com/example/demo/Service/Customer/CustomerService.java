@@ -36,4 +36,9 @@ public class CustomerService implements ICustomerService{
     public void increaseFundsAvailable(Customer customer, float funds) {
         customerDAO.increaseFundsAvailable(customer,funds);
     }
+
+    @Override
+    public void decreaseFundsAvailable(Customer customer, float funds) {
+        customerDAO.decreaseFundsAvailable(customer,funds);
+    }
 }

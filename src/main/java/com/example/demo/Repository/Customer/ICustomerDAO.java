@@ -12,5 +12,6 @@ public interface ICustomerDAO {
     Customer searchCustomerByMail(String mail);
 
     void increaseFundsAvailable(Customer customer, float funds);
+    void decreaseFundsAvailable(Customer customer, float funds);
 
 }

@@ -12,7 +12,7 @@ public class Payment {
     @ManyToOne
     private Customer customer;
 
-    @ManyToOne
+    @OneToOne
     private Order order;
 
     public Payment() {

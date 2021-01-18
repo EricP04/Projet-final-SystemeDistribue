@@ -39,6 +39,11 @@ public class BasketService implements IBasketService {
     public Basket findBasket(Customer customer) {
         return basketDAO.findBasket(customer);
     }
+
+    @Override
+    public void deleteBasketBuyedForCustomer(Customer customer) {
+        basketDAO.deleteBasketBuyedForCustomer(customer);
+    }
 /*
     @Override
     public ArticleSupplierDTO basketToArticle(Basket basket) {

@@ -202,6 +202,7 @@ public class ShopController {
                 articleOrderInformation.setCount(articleOrderInformation.getCount() + quantite);
             }
             newBasket.addArticle(articleOrderInformation);
+
             double totalPrice = tvaTemplateService.getTotalPriceWithTva(newBasket.getArticles());
             newBasket.setTotalPrice(totalPrice);
             System.out.println("Newtbasket id = " + newBasket.getId());
