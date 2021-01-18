@@ -10,6 +10,8 @@ import com.example.demo.Service.Customer.CustomerService;
 import com.example.demo.Service.Order.OrderService;
 import com.example.demo.Service.WarehouseService.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,18 +46,20 @@ public class PaymentController {
     private WarehouseService warehouseService;
 
     @RequestMapping(name = "/", method = RequestMethod.GET)
-    public String index(@CookieValue(value = "CUSTOMER", defaultValue = "-1")String customerEmail, Model model, HttpSession session)
+    public String index(Model model, HttpSession session)
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String customerEmail = authentication.getName();
         model.addAttribute("price",getTotalPrice(customerEmail,session));
         return "payment";
     }
 
     @RequestMapping(name="/", method = RequestMethod.POST)
-    public String confirmPayment(@CookieValue(value = "CUSTOMER", defaultValue = "-1")String customerEmail, Model model, HttpSession session,
+    public String confirmPayment(Model model, HttpSession session,
                                  @RequestParam(value = "radioButton", required = true) String radioButton)
     {
-
-        System.out.println("CONFIRM PAYMENT");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String customerEmail = authentication.getName();
         double price = getTotalPrice(customerEmail,session);
         if(radioButton.equals("Standard"))
         {

@@ -22,7 +22,7 @@
     <div id="Customer" class="tab-pane fade show active">
         <h4 class="mt-2">Customer Connexion</h4>
 
-        <form th:action="@{/loginPage/customer/}" th:object="${loginFormCustomer}" METHOD="post">
+        <form th:action="@{/customer/login/}" th:object="${loginFormCustomer}" METHOD="post">
             <table>
                 <tr>
                     <td>Email address</td>
@@ -70,7 +70,7 @@
 
     </div>
     <a class="btn btn-primary" role="button" href="/customer/customerRegister">Not a member yet? Join us now !</a>
-    <a class="btn btn-primary" role="button" href="/loginPage/supplier/">Supplier</a>
+    <a class="btn btn-primary" role="button" href="/supplier/login/">Supplier</a>
 
 
 

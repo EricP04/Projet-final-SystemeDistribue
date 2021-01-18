@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance
+@Table(name = "MY_USER")
 public abstract class MyUser {
 
     @Id

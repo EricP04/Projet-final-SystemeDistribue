@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/sell")
+@RequestMapping("/supplier/sell")
 public class SellController {
 
     @Autowired

@@ -17,7 +17,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-
+            <li class="nav-item active">
+                <a th:if="${customer == null}" href="/login">Login </a>
+            </li>
             <li class="nav-item active">
                 <span th:if="${customer != null}" th:text="${customer.getName()}">Ici le pseudo </span>
             </li>

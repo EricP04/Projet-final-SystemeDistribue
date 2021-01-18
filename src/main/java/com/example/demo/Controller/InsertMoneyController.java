@@ -5,6 +5,8 @@ import com.example.demo.Form.InsertMoney.InsertMoneyValidator;
 import com.example.demo.Service.Customer.CustomerService;
 import com.example.demo.Service.GRPCBankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,12 +54,14 @@ public class InsertMoneyController {
 
     @RequestMapping(value="/", method = RequestMethod.POST)
     public String insertMoney(Model model, @ModelAttribute("insertMoneyForm") @Validated InsertMoneyForm insertMoneyForm,
-                              @CookieValue(value = "CUSTOMER", defaultValue = "-1")String customerEmail,
+
                                 BindingResult result,
                                 final RedirectAttributes redirectAttributes,
                                 HttpServletResponse response)
     {
         System.out.println("CHECK SUPPLIER");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String customerEmail = authentication.getName();
         if(result.hasErrors())
         {
             /**

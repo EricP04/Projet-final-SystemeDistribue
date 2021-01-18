@@ -12,7 +12,7 @@
 <body>
 <div id="Supplier">
     <h4 class="mt-2">Supplier Connexion</h4>
-    <form th:action="@{/loginPage/supplier/}" th:object="${loginFormSupplier}" METHOD="post">
+    <form th:action="@{/customer/supplier/}" th:object="${loginFormSupplier}" METHOD="post">
         <table>
             <tr>
                 <td>Email address</td>
@@ -57,7 +57,7 @@
         <p><input type="submit" value="Connexion"></p>
     </form>
     </div>-->
-    <a class="btn btn-primary" role="button" href="/loginPage/customer/"> Customer connection</a>
+    <a class="btn btn-primary" role="button" href="/customer/login/"> Customer connection</a>
     <a class="btn btn-primary" role="button" href="/supplier/register">Want to sell on our platform? Join us now !</a>
 
 </div>

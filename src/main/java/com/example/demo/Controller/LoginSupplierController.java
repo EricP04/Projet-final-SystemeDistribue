@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/loginPage/supplier")
+@RequestMapping("/supplier/login")
 public class LoginSupplierController {
 
     @Autowired
