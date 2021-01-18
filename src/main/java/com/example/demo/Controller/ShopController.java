@@ -141,6 +141,57 @@ public class ShopController {
         model.addAttribute("totalCost",getTotalPrice(customerEmail,session));
         return "shop";
     }
+    @RequestMapping(value = "/removeFromBasket", method = RequestMethod.POST)
+    public String removeFromBasket(Model model,
+                                   @RequestParam(value="removeButton",required = true) String buttonValue,
+                                   @CookieValue(value = "CUSTOMER", defaultValue = "-1")String customerEmail,
+                                   HttpServletResponse response,
+                                   HttpSession session){
+        Integer idArticleInformation = Integer.valueOf(buttonValue);
+        List<ArticleSupplierDTO> articlesBasket = getListBaskets(customerEmail,session);
+        ArticleSupplierDTO articleInformation = null;
+        Customer customer = customerService.searchCustomerByMail(customerEmail);
+        for(ArticleSupplierDTO articleSupplierDTO : articlesBasket)
+        {
+            if(articleSupplierDTO.getIdArticleInfo() == idArticleInformation) {
+                articleInformation = articleSupplierDTO;
+                break;
+            }
+        }
+        if(articleInformation!=null) {
+            System.out.println("Id article information : " + articleInformation.getIdArticleInfo());
+            System.out.println("Quantite de l'article : " + articleInformation.getStock());
+            ArticleInformation articleToSupp = articleInformationService.getArticleInformationById(idArticleInformation);
+            System.out.println("Article to supp : " + articleToSupp.getId());
+            Basket basket = basketService.getBasketForCustomer(customer);
+            System.out.println("Basket article 1 name : " + basket.getArticles().get(0).getArticle().getName());
+            System.out.println("article to supp 1 name : " + articleToSupp.getArticle().getName());
+            System.out.println("Basket article 1 name : " + basket.getArticles().get(0).getArticle().getId());
+            System.out.println("article to supp 1 name : " + articleToSupp.getArticle().getId());
+            boolean find = false;
+            for(int i=0;i<basket.getArticles().size() && !find;i++)
+            {
+
+                if(basket.getArticles().get(i).getArticle().getId()==idArticleInformation)
+                {
+                    find=basket.getArticles().remove(i)!=null;
+                }
+            }
+            if(find) {
+                System.out.print("BASKET CONTIENT CET ARTICLE");
+                articleToSupp.setStock(articleToSupp.getStock() + articleInformation.getStock());
+                double totalPrice = tvaTemplateService.getTotalPriceWithTva(basket.getArticles());
+                basket.setTotalPrice(totalPrice);
+                basketService.addNewBasket(basket);
+                articleInformationService.saveNewArticleInformation(articleToSupp);
+            }
+            else {
+                System.out.print("BASKET NE CONTIENT PAS CET ARTICLE");
+            }
+        }
+
+        return "redirect:/shop/";
+    }
 
     @RequestMapping(value = "/addToBasket", method = RequestMethod.POST)
     public String addToBasket(Model model,

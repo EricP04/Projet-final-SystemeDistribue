@@ -5,8 +5,10 @@ import com.example.demo.Entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class OrderDAO implements IOrderDAO {
@@ -18,6 +20,14 @@ public class OrderDAO implements IOrderDAO {
     @Override
     public Order newOrder(Order order) {
         return orderRepository.save(order);
+    }
+
+    @Override
+    public Order getOrderById(Integer id) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        if(orderOptional.isPresent())
+            return orderOptional.get();
+        return null;
     }
 
     @Override

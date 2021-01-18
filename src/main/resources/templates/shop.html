@@ -126,7 +126,9 @@
                             </div>
                         </div>
                     </div>
-
+                    <form method="POST" th:action="@{/shop/removeFromBasket}">
+                        <button type="submit" name="removeButton" th:value="${basket.idArticleInfo}">Remove from basket</button>
+                    </form>
                 </tr>
             </div>
             <div class="container">

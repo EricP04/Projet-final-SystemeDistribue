@@ -8,6 +8,7 @@ import java.util.List;
 public interface IOrderDAO {
 
     Order newOrder(Order order);
+    Order getOrderById(Integer id);
     List<Order> getOrdersForCustomer(Customer customer);
 
 }
