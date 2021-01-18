@@ -79,7 +79,7 @@ public class CustomerController {
             return "customerRegisterPage";
         }
 
-        return "shop";
+        return "redirect:/login";
     }
 
     //endregion
