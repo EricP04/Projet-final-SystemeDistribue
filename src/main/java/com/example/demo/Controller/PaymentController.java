@@ -77,32 +77,23 @@ public class PaymentController {
         }
         Basket basket = basketService.getBasketForCustomer(customer);
         List<ArticleOrderInformation> articleOrderInformationListTmp = basket.getArticles();
-        System.out.println("articleOrderInformationListTmp size :" + articleOrderInformationListTmp.size());
         basketService.deleteBasketBuyedForCustomer(customer);
         List<ArticleOrderInformation> articleOrderInformationList = new ArrayList<>();
         for(ArticleOrderInformation articleOrderInformation : articleOrderInformationListTmp)
             articleOrderInformationList.add(articleOrderInformationService.newArticleOrderInformation(new ArticleOrderInformation(
                     articleOrderInformation.getSupplier(), articleOrderInformation.getArticle(),articleOrderInformation.getPrice(), articleOrderInformation.getCount()))
             );
-        System.out.println("ArticleOrderInformationList size :" + articleOrderInformationList.size());
-        System.out.println("Article test :" + articleOrderInformationList.get(0).getArticle().getName());
-        System.out.println("Article test 2 :" + articleOrderInformationList.get(0).getId());
         Order newOrder = orderService.newOrder(new Order());
-        System.out.println("ON a sauvé vide");
         newOrder.setCustomer(customer);
         Order orderWithId=orderService.newOrder(newOrder);
-        System.out.println("ON a sauvé avec le customer");
         newOrder.setStatus(0);
         orderWithId=orderService.newOrder(newOrder);
-        System.out.println("ON a sauvé avec le status");
         newOrder.setArticles(articleOrderInformationList);
         orderWithId=orderService.newOrder(newOrder);
-        System.out.println("ON a sauvé avec les articles");
 
         newOrder.setTotalPrice(price);
          orderWithId=orderService.newOrder(newOrder);
 
-        System.out.println("ON a sauvé avec le prix");
 
 
         warehouseService.sendMessageToWarehouse(new OrderMessage(orderWithId.getId(),orderWithId.getStatus()));
@@ -118,7 +109,6 @@ public class PaymentController {
             Customer customer = customerService.searchCustomerByMail(customerEmail);
             if(customer==null)
             {
-                System.out.println("CUSTOMER EST NULL");
                 return 0;
             }
             else

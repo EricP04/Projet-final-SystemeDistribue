@@ -8,6 +8,7 @@ import com.example.demo.Service.ArticleOrderInformation.ArticleOrderInformationS
 import com.example.demo.Service.Basket.BasketService;
 import com.example.demo.Service.Customer.CustomerService;
 import com.example.demo.Service.TVA.TvaTemplateService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/shop")
+@Slf4j
 public class ShopController {
 
     @Autowired
@@ -59,7 +61,7 @@ public class ShopController {
                 }
             }
         }
-        System.out.println("CUSTOMER EMAIL =" + customerEmail);
+        log.debug("Customer email : " + customerEmail);
         model.addAttribute("customer",customerService.searchCustomerByMail(customerEmail));
         model.addAttribute("listArticle",getListArticleSupplierDTOS());
         model.addAttribute("listBaskets",getListBaskets(customerEmail,session));
@@ -68,11 +70,10 @@ public class ShopController {
     }
 
     private boolean setCustomerBasket(Basket b, String customerEmail) {
-        System.out.println("SET CUSTOMER BASKET customer email = " + customerEmail);
-        System.out.println("Basket b size : "+b.getArticles().size());
+        log.debug("set customer basket (email = " + customerEmail);
         Customer customer = customerService.searchCustomerByMail(customerEmail);
         if (customer == null) {
-            System.out.println("Customer not found");
+            log.error("Customer non trouvé");
             return false;
         }
         Basket basketCustomer = basketService.getBasketForCustomer(customer);
@@ -103,7 +104,7 @@ public class ShopController {
             Customer customer = customerService.searchCustomerByMail(customerEmail);
             if(customer==null)
             {
-                System.out.println("CUSTOMER EST NULL");
+                log.debug("Customer null");
                 listBaskets = new ArrayList<>();
             }
             else
@@ -139,7 +140,7 @@ public class ShopController {
             Customer customer = customerService.searchCustomerByMail(customerEmail);
             if(customer==null)
             {
-                System.out.println("CUSTOMER EST NULL");
+                log.error("Customer est null");
                 return 0;
             }
             else
@@ -169,7 +170,7 @@ public class ShopController {
 
                                 HttpSession session)
     {
-        System.out.println("MORE SUPPLIER BUTTON VALUE = " + buttonValue);
+        log.debug("More supplier");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String customerEmail = authentication.getName();
         //model.addAttribute("listArticle",listArticleSupplierDTOS);
@@ -210,14 +211,13 @@ public class ShopController {
                     }
                 }
                 if (find) {
-                    System.out.print("BASKET CONTIENT CET ARTICLE");
                     articleToSupp.setStock(articleToSupp.getStock() + articleInformation.getStock());
                     double totalPrice = tvaTemplateService.getTotalPriceWithTva(basket.getArticles());
                     basket.setTotalPrice(totalPrice);
                     basketService.addNewBasket(basket);
                     articleInformationService.saveNewArticleInformation(articleToSupp);
                 } else {
-                    System.out.print("BASKET NE CONTIENT PAS CET ARTICLE");
+                    log.error("le panier ne contient pas cet article");
                 }
             }
         }
@@ -240,14 +240,13 @@ public class ShopController {
                     }
                 }
                 if (find) {
-                    System.out.print("BASKET CONTIENT CET ARTICLE");
                     articleToSupp.setStock(articleToSupp.getStock() + articleInformation.getStock());
                     double totalPrice = tvaTemplateService.getTotalPriceWithTva(basket.getArticles());
                     basket.setTotalPrice(totalPrice);
                     articleInformationService.saveNewArticleInformation(articleToSupp);
                     session.setAttribute("basket",basket);
                 } else {
-                    System.out.print("BASKET NE CONTIENT PAS CET ARTICLE");
+                    log.debug("Le panier ne contient pas cet article");
                 }
             }
         }
@@ -264,10 +263,6 @@ public class ShopController {
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String customerEmail = authentication.getName();
-        System.out.println("Customer =" + customerEmail);
-        System.out.println("BuyButton = " + buttonValue);
-        System.out.println("StockRequired = "+stockRequired);
-        System.out.println("Is Authenticated = "+authentication.isAuthenticated());
         Integer idArticleInformation = Integer.valueOf(buttonValue);
         int quantite = 0;
         try{
@@ -275,7 +270,7 @@ public class ShopController {
         }
         catch (NumberFormatException nfe)
         {
-            System.out.println("NumberFormatException : " + nfe);
+            log.error("NumberFormatException : " + nfe);
             return "redirect:/shop/";
         }
         ArticleInformation articleInformation = articleInformationService.getArticleInformationById(idArticleInformation);
@@ -283,7 +278,7 @@ public class ShopController {
         if(!customerEmail.equals("anonymousUser")) {
             Customer customer = customerService.searchCustomerByMail(customerEmail);
             if (customer == null) {
-                System.out.println("CUSTOMER EST NULL QUAND ON LE RECHERCHE");
+                log.error("Customer null quand on le recherche");
                 return "redirect:/shop/";
             }
 
@@ -291,7 +286,6 @@ public class ShopController {
             if (articleInformation.getStock() >= quantite) {
                 Basket newBasket = basketService.findBasket(customer);
                 if (newBasket == null) {
-                    System.out.println("BASKET = NULL");
                     newBasket = new Basket(customer);
                 }
                 try {
@@ -308,7 +302,7 @@ public class ShopController {
                     articleOrderInformation = new ArticleOrderInformation(articleInformation.getSupplier(), articleInformation.getArticle(), articleInformation.getPrice(), quantite);
                     articleOrderInformation = articleOrderInformationService.newArticleOrderInformation(articleOrderInformation);
                     if (articleOrderInformation == null) {
-                        System.out.println("ERREURS LORS DE LA SAUVEGARDE DU NOUVEL ARTICLE ORDER INFORMATION");
+                        log.error("Erreurs lors de la sauvegarde du nouvel article order information");
                         return "redirect:/shop/";
                     }
                 } else {
@@ -318,24 +312,20 @@ public class ShopController {
 
                 double totalPrice = tvaTemplateService.getTotalPriceWithTva(newBasket.getArticles());
                 newBasket.setTotalPrice(totalPrice);
-                System.out.println("Newtbasket id = " + newBasket.getId());
-                System.out.println("NEWBASKET TOTAL PRICE :" + totalPrice);
                 newBasket = basketService.addNewBasket(newBasket);
                 if (newBasket == null) {
-                    System.out.println("Erreur lors du save de newbasket");
+                    log.error("Erreurs lors du save de newbasket");
 
                 } else {
                     articleInformation.setStock(articleInformation.getStock() - quantite);
                     articleInformation = articleInformationService.saveNewArticleInformation(articleInformation);
                     if (articleInformation == null) {
-                        System.out.println("Erreur lors de la mise à jour de articleInformation");
-                    } else {
-                        //listBaskets.add(basketService.basketToArticle(newBasket));
+                        log.error("Erreur lors de la mise à jour de articleInformation");
                     }
                 }
 
             } else {
-                System.out.println("Pas assez de stock");
+                log.debug("Pas assez de stock");
             }
         }
         else
@@ -348,7 +338,7 @@ public class ShopController {
                 articleOrderInformation = new ArticleOrderInformation(articleInformation.getSupplier(), articleInformation.getArticle(), articleInformation.getPrice(), quantite);
                 articleOrderInformation = articleOrderInformationService.newArticleOrderInformation(articleOrderInformation);
                 if (articleOrderInformation == null) {
-                    System.out.println("ERREURS LORS DE LA SAUVEGARDE DU NOUVEL ARTICLE ORDER INFORMATION");
+                    log.error("Erreurs lors de la sauvegarde du nouvel article");
                     return "shop";
                 }
             } else {
@@ -360,7 +350,7 @@ public class ShopController {
             articleInformation.setStock(articleInformation.getStock() - quantite);
             articleInformation = articleInformationService.saveNewArticleInformation(articleInformation);
             if (articleInformation == null) {
-                System.out.println("Erreur lors de la mise à jour de articleInformation");
+                log.error("Erreur lors de la mise à jour de articleInformation");
             }
         }
         model.addAttribute("customer",customerService.searchCustomerByMail(customerEmail));

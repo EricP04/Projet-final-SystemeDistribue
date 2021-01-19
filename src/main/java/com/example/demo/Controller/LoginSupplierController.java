@@ -8,6 +8,7 @@ import com.example.demo.Form.Login.LoginSupplierForm;
 import com.example.demo.Form.Supplier.SupplierLoginValidator;
 import com.example.demo.Service.Customer.CustomerService;
 import com.example.demo.Service.Supplier.SupplierService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/supplier/login")
+@Slf4j
 public class LoginSupplierController {
 
     @Autowired
@@ -65,7 +67,7 @@ public class LoginSupplierController {
                                 final RedirectAttributes redirectAttributes,
                                 HttpServletResponse response)
     {
-        System.out.println("CHECK SUPPLIER");
+        log.debug("Check supplier");
         if(result.hasErrors())
         {
             /**
@@ -73,9 +75,8 @@ public class LoginSupplierController {
              */
             for(ObjectError t : result.getAllErrors())
             {
-                System.out.println("Erreur : " + t.toString());
+                log.error("Erreurs : " + t.toString());
             }
-            System.out.println("Il y a des erreurs ici");
             //model.addAttribute("loginFormCustomer",new LoginCustomerForm());
 
             return "loginPageSupplier";
@@ -95,11 +96,11 @@ public class LoginSupplierController {
             return "loginPageSupplier";
         }
 
-        System.out.println("ON VA SET LE COOKIE SUPPLIER AVEC : " + supplier.getEmailAddress());
+        log.debug("On va set le cookie supplier avec : " + supplier.getEmailAddress());
         Cookie cookie = new Cookie("SUPPLIER",supplier.getEmailAddress());
         cookie.setPath("/");
         response.addCookie(cookie);
-        return "redirect:/sell/";
+        return "redirect:/supplier/sell/";
     }
 
 

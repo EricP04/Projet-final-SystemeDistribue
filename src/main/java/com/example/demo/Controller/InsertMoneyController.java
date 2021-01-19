@@ -4,6 +4,7 @@ import com.example.demo.Form.InsertMoney.InsertMoneyForm;
 import com.example.demo.Form.InsertMoney.InsertMoneyValidator;
 import com.example.demo.Service.Customer.CustomerService;
 import com.example.demo.Service.GRPCBankService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/money")
+@Slf4j
 public class InsertMoneyController {
 
     @Autowired
@@ -35,7 +37,7 @@ public class InsertMoneyController {
     @InitBinder
     protected void InitBinder(WebDataBinder dataBinder)
     {
-        System.out.println("INITBINDER");
+        log.debug("INIT BINDER");
         Object target = dataBinder.getTarget();
         if(target == null)
             return;
@@ -59,7 +61,7 @@ public class InsertMoneyController {
                                 final RedirectAttributes redirectAttributes,
                                 HttpServletResponse response)
     {
-        System.out.println("CHECK SUPPLIER");
+        log.debug("CHECK SUPPLIER");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String customerEmail = authentication.getName();
         if(result.hasErrors())
@@ -69,9 +71,9 @@ public class InsertMoneyController {
              */
             for(ObjectError t : result.getAllErrors())
             {
+                log.error("Erreurs : " + t.toString());
                 System.out.println("Erreur : " + t.toString());
             }
-            System.out.println("Il y a des erreurs ici");
 
             return "insertMoney";
         }

@@ -8,6 +8,7 @@ import com.example.demo.Form.Supplier.SupplierRegisterForm;
 import com.example.demo.Form.Supplier.SupplierRegisterValidator;
 import com.example.demo.Service.Customer.CustomerService;
 import com.example.demo.Service.Supplier.SupplierService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value ="/supplier")
+@Slf4j
 public class SupplierController {
 
     @Autowired
@@ -62,9 +64,8 @@ public class SupplierController {
         {
             for(ObjectError t : result.getAllErrors())
             {
-                System.out.println("Erreur : " + t.toString());
+                log.error("Erreur : " + t.toString());
             }
-            System.out.println("Il y a des erreurs");
             return "supplierRegisterPage";
         }
         Supplier supplier = null;
